@@ -8,4 +8,5 @@ Intended to practice background services by creating an application which takes 
 begins alerting the set number with the given message every X minutes.
 
 AWTY_1 = Creates Toasts with given message on device
+
 AWTY_2 = Sends SMS messages with given message
