@@ -42,7 +42,7 @@
                 android:text="@string/input_number_text"/>
 
             <EditText android:id="@+id/phone_number"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="phone"/>
 
@@ -62,7 +62,7 @@
                 android:text="@string/input_frequency_text"/>
 
             <EditText android:id="@+id/frequency"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"/>
 
