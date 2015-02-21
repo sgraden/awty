@@ -43,13 +43,13 @@
       <file leaf-file-name="AwtyMain.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/steven/awty/AwtyMain.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.4787234" vertical-offset="60" max-vertical-offset="2250">
-              <caret line="43" column="84" selection-start-line="43" selection-start-column="84" selection-end-line="43" selection-end-column="84" />
+            <state vertical-scroll-proportion="0.7074468" vertical-offset="1686" max-vertical-offset="2250">
+              <caret line="160" column="46" selection-start-line="160" selection-start-column="46" selection-end-line="160" selection-end-column="46" />
               <folding>
-                <element signature="e#1957#4045#0" expanded="true" />
-                <element signature="e#4034#4035#0" expanded="true" />
-                <element signature="e#5826#5852#0" expanded="true" />
-                <element signature="e#5902#5927#0" expanded="true" />
+                <element signature="e#1979#4072#0" expanded="true" />
+                <element signature="e#4061#4062#0" expanded="true" />
+                <element signature="e#5853#5879#0" expanded="true" />
+                <element signature="e#5929#5954#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -886,7 +886,7 @@
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="recentsLimit" value="5" />
     <property name="FullScreen" value="true" />
-    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="emulator-5554" />
+    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="" />
     <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_AVD" value="Nexus_5_API_21_x86" />
     <property name="options.lastSelected" value="appearance" />
     <property name="options.splitter.main.proportions" value="0.3" />
@@ -1169,10 +1169,10 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="132" max-vertical-offset="1215">
           <caret line="52" column="70" selection-start-line="52" selection-start-column="70" selection-end-line="52" selection-end-column="70" />
           <folding>
-            <element signature="e#1957#4045#0" expanded="true" />
-            <element signature="e#4034#4035#0" expanded="true" />
-            <element signature="e#5826#5852#0" expanded="true" />
-            <element signature="e#5902#5927#0" expanded="true" />
+            <element signature="e#1979#4072#0" expanded="true" />
+            <element signature="e#4061#4062#0" expanded="true" />
+            <element signature="e#5853#5879#0" expanded="true" />
+            <element signature="e#5929#5954#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1209,10 +1209,10 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="675">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#1957#4045#0" expanded="true" />
-            <element signature="e#4034#4035#0" expanded="true" />
-            <element signature="e#5826#5852#0" expanded="true" />
-            <element signature="e#5902#5927#0" expanded="true" />
+            <element signature="e#1979#4072#0" expanded="true" />
+            <element signature="e#4061#4062#0" expanded="true" />
+            <element signature="e#5853#5879#0" expanded="true" />
+            <element signature="e#5929#5954#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1297,13 +1297,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/steven/awty/AwtyMain.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4787234" vertical-offset="60" max-vertical-offset="2250">
-          <caret line="43" column="84" selection-start-line="43" selection-start-column="84" selection-end-line="43" selection-end-column="84" />
+        <state vertical-scroll-proportion="0.7074468" vertical-offset="1686" max-vertical-offset="2250">
+          <caret line="160" column="46" selection-start-line="160" selection-start-column="46" selection-end-line="160" selection-end-column="46" />
           <folding>
-            <element signature="e#1957#4045#0" expanded="true" />
-            <element signature="e#4034#4035#0" expanded="true" />
-            <element signature="e#5826#5852#0" expanded="true" />
-            <element signature="e#5902#5927#0" expanded="true" />
+            <element signature="e#1979#4072#0" expanded="true" />
+            <element signature="e#4061#4062#0" expanded="true" />
+            <element signature="e#5853#5879#0" expanded="true" />
+            <element signature="e#5929#5954#0" expanded="true" />
           </folding>
         </state>
       </provider>

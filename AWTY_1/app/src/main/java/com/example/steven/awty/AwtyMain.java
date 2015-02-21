@@ -29,7 +29,7 @@ import java.util.regex.Pattern;
 public class AwtyMain extends ActionBarActivity {
 
     private PendingIntent pendingIntent; //Background intent for the alarm
-    private Intent alarmIntent;
+    //private Intent alarmIntent;
     private boolean started; //Whether the alarm has be started
     private static final int INTENT_ID = 1;
 
@@ -40,16 +40,16 @@ public class AwtyMain extends ActionBarActivity {
         setContentView(R.layout.activity_awty_main);
 
         //Grab the existing alarm based on ID and check if it is already made.
-        alarmIntent = new Intent(AwtyMain.this, AlarmReceiver.class);
-        started = (PendingIntent.getBroadcast(AwtyMain.this, INTENT_ID, alarmIntent,
-                PendingIntent.FLAG_NO_CREATE) != null);
-        Log.i("hello", "" + started);
-        if (started) { //If alarm already exists
-            Log.i("hello", "Alarm is already active");
-            pendingIntent = PendingIntent.getBroadcast(AwtyMain.this, AwtyMain.INTENT_ID, alarmIntent,
-                    PendingIntent.FLAG_NO_CREATE);
-            swapButton(true); //Switch to "Stop" if alarm exists
-        }
+//        alarmIntent = new Intent(AwtyMain.this, AlarmReceiver.class);
+//        started = (PendingIntent.getBroadcast(AwtyMain.this, INTENT_ID, alarmIntent,
+//                PendingIntent.FLAG_NO_CREATE) != null);
+//        Log.i("hello", "" + started);
+//        if (started) { //If alarm already exists
+//            Log.i("hello", "Alarm is already active");
+//            pendingIntent = PendingIntent.getBroadcast(AwtyMain.this, AwtyMain.INTENT_ID, alarmIntent,
+//                    PendingIntent.FLAG_NO_CREATE);
+//            swapButton(true); //Switch to "Stop" if alarm exists
+//        }
 
         Button startEnd = (Button) findViewById(R.id.begin_end_button);
         startEnd.setOnClickListener(new View.OnClickListener() {
@@ -75,7 +75,7 @@ public class AwtyMain extends ActionBarActivity {
                 }
 
                 /* Retrieve a PendingIntent that will perform a broadcast */
-                //alarmIntent = new Intent(AwtyMain.this, AlarmReceiver.class);
+                Intent alarmIntent = new Intent(AwtyMain.this, AlarmReceiver.class);
                 alarmIntent.putExtra("message", phoneNumString + ": " + msgString); //Intent to send to the alarm
 
                 pendingIntent = PendingIntent.getBroadcast(AwtyMain.this, INTENT_ID,
