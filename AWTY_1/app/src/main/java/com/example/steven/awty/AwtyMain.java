@@ -40,16 +40,15 @@ public class AwtyMain extends ActionBarActivity {
         setContentView(R.layout.activity_awty_main);
 
         //Grab the existing alarm based on ID and check if it is already made.
-//        alarmIntent = new Intent(AwtyMain.this, AlarmReceiver.class);
-//        started = (PendingIntent.getBroadcast(AwtyMain.this, INTENT_ID, alarmIntent,
-//                PendingIntent.FLAG_NO_CREATE) != null);
-//        Log.i("hello", "" + started);
-//        if (started) { //If alarm already exists
-//            Log.i("hello", "Alarm is already active");
-//            pendingIntent = PendingIntent.getBroadcast(AwtyMain.this, AwtyMain.INTENT_ID, alarmIntent,
-//                    PendingIntent.FLAG_NO_CREATE);
-//            swapButton(true); //Switch to "Stop" if alarm exists
-//        }
+        Intent alarmIntent = new Intent(AwtyMain.this, AlarmReceiver.class);
+        started = (PendingIntent.getBroadcast(AwtyMain.this, INTENT_ID, alarmIntent,
+                PendingIntent.FLAG_NO_CREATE) != null);
+        if (started) { //If alarm already exists
+            pendingIntent = PendingIntent.getBroadcast(AwtyMain.this, AwtyMain.INTENT_ID, alarmIntent,
+                    PendingIntent.FLAG_NO_CREATE);
+            Toast.makeText(AwtyMain.this, "Alarm Exists (Stop or overwrite)", Toast.LENGTH_SHORT).show();
+            swapButton(true); //Switch to "Stop" if alarm exists
+        }
 
         Button startEnd = (Button) findViewById(R.id.begin_end_button);
         startEnd.setOnClickListener(new View.OnClickListener() {
@@ -126,7 +125,7 @@ public class AwtyMain extends ActionBarActivity {
 
     public void start(int interval) {
         started = true;
-        interval = interval * 1000;// * 60; //Converts min to milli
+        interval = interval * 1000 * 60; //Converts min to milli
         swapButton(started);
 
         AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
@@ -139,6 +138,7 @@ public class AwtyMain extends ActionBarActivity {
         swapButton(started);
         AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         manager.cancel(pendingIntent);
+        pendingIntent.cancel();
         Toast.makeText(this, "Alarm Canceled", Toast.LENGTH_SHORT).show();
     }
 
