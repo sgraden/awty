@@ -15,7 +15,7 @@ public class AlarmReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
 
         String message = intent.getStringExtra("message");
-        Log.i("hello", "Received: " + message);
+
         // For our recurring task, we'll just display a message
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }

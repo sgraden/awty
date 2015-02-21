@@ -20,12 +20,18 @@ import android.widget.Toast;
 import org.w3c.dom.Text;
 
 import java.util.Calendar;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+
+//NEED TO FIGURE OUT HOW TO CANCEL THE EXISTING ALARM ON RECREATE. EVERYTHING ELSE WORKS!!!
 
 public class AwtyMain extends ActionBarActivity {
 
-    private PendingIntent pendingIntent;
-    private boolean started;
+    private PendingIntent pendingIntent; //Background intent for the alarm
+    private Intent alarmIntent;
+    private boolean started; //Whether the alarm has be started
+    private static final int INTENT_ID = 1;
 
 
     @Override
@@ -33,35 +39,58 @@ public class AwtyMain extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_awty_main);
 
-        Button startEnd = (Button) findViewById(R.id.begin_end_button);
-        //startEnd.setEnabled(false);
-        started = false;
+        //Grab the existing alarm based on ID and check if it is already made.
+        alarmIntent = new Intent(AwtyMain.this, AlarmReceiver.class);
+        started = (PendingIntent.getBroadcast(AwtyMain.this, INTENT_ID, alarmIntent,
+                PendingIntent.FLAG_NO_CREATE) != null);
+        Log.i("hello", "" + started);
+        if (started) { //If alarm already exists
+            Log.i("hello", "Alarm is already active");
+            pendingIntent = PendingIntent.getBroadcast(AwtyMain.this, AwtyMain.INTENT_ID, alarmIntent,
+                    PendingIntent.FLAG_NO_CREATE);
+            swapButton(true); //Switch to "Stop" if alarm exists
+        }
 
+        Button startEnd = (Button) findViewById(R.id.begin_end_button);
         startEnd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TextView tvMessage = (TextView) findViewById(R.id.message);
-                TextView tvPhone = (TextView) findViewById(R.id.phone_number);
-                TextView tvFrequency = (TextView) findViewById(R.id.frequency);
+                TextView tvMessage = (TextView) findViewById(R.id.message);     //TV message
+                TextView tvPhone = (TextView) findViewById(R.id.phone_number);  //TV phone
+                TextView tvFrequency = (TextView) findViewById(R.id.frequency); //TV frequency
 
-                //if (message.getText() != "" && phone.getText() != "" && frequency.getText() != "") {
-                    /* Retrieve a PendingIntent that will perform a broadcast */
-                    Intent alarmIntent = new Intent(AwtyMain.this, AlarmReceiver.class);
-                    String message = tvMessage.getText().toString();
-                    String phoneNum = tvPhone.getText().toString();
+                String msgString = tvMessage.getText().toString();          //String for msg
+                String phoneNumString = tvPhone.getText().toString();       //String for phone
+                String frequencyString = tvFrequency.getText().toString();  //String for frequency
+                int freqInt = -1; //Integer frequency of how often Alarm should Toast
+                if (frequencyString.length() > 0) { //Check if frequency length > 0
+                    freqInt = Integer.parseInt(frequencyString);
+                }
 
-                    alarmIntent.putExtra("message", phoneNum + ": " + message);
-                    pendingIntent = PendingIntent.getBroadcast(AwtyMain.this, 0, alarmIntent, 0);
+                boolean allow = false; // Can we start the alarm?
+                if (msgString.length() > 0
+                        && validatePhoneNumber(phoneNumString)
+                        && freqInt > 0) {
+                    allow = true;
+                }
 
+                /* Retrieve a PendingIntent that will perform a broadcast */
+                //alarmIntent = new Intent(AwtyMain.this, AlarmReceiver.class);
+                alarmIntent.putExtra("message", phoneNumString + ": " + msgString); //Intent to send to the alarm
 
+                pendingIntent = PendingIntent.getBroadcast(AwtyMain.this, INTENT_ID,
+                        alarmIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+
+                if (allow || started) {
                     //Starts alarm with given message and frequency
                     if (!started) {
-                        start(Integer.parseInt(tvFrequency.getText().toString()));
-                    } else {
+                        start(freqInt);
+                    } else { //cancels alarm based on pendingIntent
                         cancel();
                     }
-                //}
-
+                } else {
+                    Toast.makeText(AwtyMain.this, "Failed: Check inputs", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -88,23 +117,49 @@ public class AwtyMain extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        //cancel();
+    }
+
 
     public void start(int interval) {
         started = true;
-        interval = interval * 1000 * 60; //Converts min to milli
+        interval = interval * 1000;// * 60; //Converts min to milli
+        swapButton(started);
 
         AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        Log.i("hello", "Started: " + interval);
         manager.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), interval, pendingIntent);
         Toast.makeText(this, "Alarm Set", Toast.LENGTH_SHORT).show();
     }
 
     public void cancel() {
         started = false;
-        Log.i("hello", "canceled");
-
+        swapButton(started);
         AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         manager.cancel(pendingIntent);
         Toast.makeText(this, "Alarm Canceled", Toast.LENGTH_SHORT).show();
+    }
+
+    public void swapButton(boolean isActive) {
+        Log.i("hello", "swapped");
+        Button startStop = (Button) findViewById(R.id.begin_end_button);
+        if (!isActive) {
+            startStop.setText(R.string.start_button_text);
+        } else {
+            startStop.setText(R.string.stop_button_text);
+        }
+    }
+
+    private static boolean validatePhoneNumber(String phoneNo) {
+        //validate phone numbers of format "1234567890"
+        if (phoneNo.matches("\\d{10}")) return true;
+            //validating phone number with -, . or spaces
+        else if(phoneNo.matches("\\d{3}[-\\.\\s]\\d{3}[-\\.\\s]\\d{4}")) return true;
+            //validating phone number where area code is in braces ()
+        else if(phoneNo.matches("\\(\\d{3}\\)-\\d{3}-\\d{4}")) return true;
+            //return false if nothing matches the input
+        else return false;
     }
 }
